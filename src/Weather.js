@@ -2,20 +2,21 @@ import React, { useState } from "react";
 import "./weather.css";
 import axios from "axios";
 
-export default function Weather() {
-  const [ready, setReady] = useState(false);
-  const [weatherData, setWeatherData] = useState({});
+export default function Weather(props) {
+  const [weatherData, setWeatherData] = useState({ ready: false });
   function handleResponse(response) {
     setWeatherData({
+      ready: true,
       temperature: response.data.main.temp,
       humidity: response.data.main.humidity,
+      date: "Wednesday 07:00",
       description: response.data.weather[0].description,
-      iconUrl:https://ssl.gstatic.com/onebox/weather/64/sunny.png,
+      iconUrl: "https://ssl.gstatic.com/onebox/weather/64/sunny.png",
+      wind: response.data.wind.speed,
       city: response.data.name,
     });
-    setReady(true);
   }
-  if (ready) {
+  if (weatherData.ready) {
     return (
       <div className="Weather">
         <div className="container">
@@ -47,10 +48,12 @@ export default function Weather() {
                 {weatherData.city}
               </div>
               <div className="date">
-                Last updated: <span id="date"></span>
+                Last updated: <span id="date">{weatherData.date}</span>
               </div>
               <ul>
-                <li id="description">{weatherData.description}</li>
+                <li className="text- capitalize" id="description">
+                  {weatherData.description}
+                </li>
               </ul>
               <div className="future-forecast">
                 <div className="today" id="current-temp">
@@ -109,8 +112,8 @@ export default function Weather() {
     );
   } else {
     const apiKey = "f6f001d26151b94d121b17eb30bad8c0";
-    let city = "Dominican Republic";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&appid=${apiKey}&units=metric`;
     axios.get(apiUrl).then(handleResponse);
     return "Loading...";
   }
