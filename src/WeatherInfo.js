@@ -10,7 +10,6 @@ export default function WeatherInfo(props) {
           {props.data.city}
         </div>
         <div className="date">
-          Last updated:{" "}
           <span id="date">
             {" "}
             <FormattedDate date={props.data.date} />
@@ -40,10 +39,22 @@ export default function WeatherInfo(props) {
               <WeatherTemperature celsius={props.data.temperature} />
 
               <div className="humidity">
-                Humidity:<span id="humidity">{props.data.humidity}</span>
+                Humidity:{""}
+                <span id="humidity">
+                  {" "}
+                  {""}
+                  {props.data.humidity}
+                </span>
+                %
               </div>
               <div>
-                Windspeed:<span id="windspeed">{props.data.wind}</span>
+                Windspeed:
+                <span id="windspeed">
+                  {" "}
+                  {""}
+                  {props.data.wind}
+                </span>{" "}
+                km/h
               </div>
             </div>
           </div>
