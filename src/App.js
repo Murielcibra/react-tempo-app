@@ -5,7 +5,7 @@ export default function App() {
   return (
     <div className="container">
       <div className="App">
-        <Weather defaultCity="Dominican Republic" />
+        <Weather defaultCity="Santo Domingo" />
       </div>
     </div>
   );
