@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import WeatherInfo from "./WeatherInfo";
 import "./weather.css";
 import axios from "axios";
+import WeatherForecast from "./WeatherForecast";
 
 export default function Weather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
@@ -9,6 +10,7 @@ export default function Weather(props) {
   function handleResponse(response) {
     setWeatherData({
       ready: true,
+      coordinates: response.data.coord,
       temperature: response.data.main.temp,
       humidity: response.data.main.humidity,
       date: new Date(response.data.dt * 1000),
@@ -58,6 +60,21 @@ export default function Weather(props) {
                 </div>
               </form>
               <WeatherInfo data={weatherData} />
+              <WeatherForecast
+                coordinates={weatherData.coordinates}
+                iconUrl={weatherData.iconUrl}
+              />{" "}
+              <footer>
+                This project was coded by Muriel Cishek and is
+                <a
+                  href="https://github.com/Murielcibra/react-tempo-app"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {" "}
+                  open-sourced on GitHub
+                </a>{" "}
+              </footer>
             </div>
           </div>
         </div>
